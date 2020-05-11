@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { render } from '@testing-library/react';
+import Book from './Book';
 
 const Booklist = props => {
     const [bookData, setBookData] = useState(null);
@@ -8,14 +10,15 @@ const Booklist = props => {
     return (
         <div>
             <ul>
-                {
+                {     // このあたり編集
                     bookData === null
                         ? <p>now loading...</p>
-                        : bookData.data.items.map(x => <li>{x.volumeInfo.title}</li>)}
+                        : bookData.data.items.map((x, index) => (
+                            <Book key={index} book={x} />
+                        ))
+                }
             </ul>
         </div>
     );
 }
-
 export default Booklist;
-//他のコンポーネントからimportで呼び出せるようにしている．
